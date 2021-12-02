@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-3">
+    <div class="row">
+        <h3 class="text-success">{{ title }}</h3>
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="col-md-5">
+
+                    {% if title.photo %}
+                    <img src="{{ title.photo.url }}" class="img-fluid img-thumbnail float-start me-4"
+                         alt="{{ title.title}} " width="600">
+                    {% else %}
+                    <img src="https://picsum.photos/id/237/300/200" alt=""
+                         class="mr-3 img-fluid img-thumbnail float-start me-4">
+                    {% endif %}
+                </div>
+                {% autoescape off %}
+                <p>{{ title.content }}</p>
+                {% endautoescape %}
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container mt-3">
+        <div class="row g-3 mb-3">
+            {% for post in posts %}
+            <div class="col-sm-6">
+                <div class="card text-start">
+                    <div class="card-header text-success">
+                        Категория: {{ post.category}}
+                    </div>
+                    <div class="card-body">
+                        <div class="col-md-5" >
+                            {% if post.photo %}
+                            <img src="{{ post.photo.url }}" class="img-fluid img-thumbnail float-start me-4" alt="{{ post.title}}">
+                            {% else %}
+                            <img src="https://picsum.photos/id/237/300/200" alt="" class="mr-3 img-fluid img-thumbnail float-start me-4">
+                            {% endif %}
+                        </div>
+
+
+                        <div class="col-ms-12">
+                            <div class="">
+                            <h5 class="card-title text-success"><a href="{{ post.get_absolute_url }}">{{post.title}}</a></h5>
+                            {% autoescape off %}
+                            <p class="card-text">{{ post.content|truncatewords:22 }}</p>
+                            {% endautoescape %}
+                            <a href="{{ post.get_absolute_url }}" class="btn btn-primary">Подробнее...</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer text-muted">
+                        {{ post.created_at|date:"d/m/Y"}}
+                    </div>
+
+                </div>
+            </div>
+            {% endfor%}
+
+            {% if page_obj.has_other_pages %}
+            <div class="pegination">
+                <div class="nav-links">
+                    {% if page_obj.has_previous %}
+                    <a class="page-numbers" href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                    {% endif %}
+
+                    {% for p in page_obj.paginator.page_range %}
+                        {% if page_obj.number == p %}
+                            <span class="page-numbers current">{{ p }}</span>
+                        {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
+                            <a class="page-numbers" href="?page={{ p }}">{{ p }}</a>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                    <a class="page-numbers" href="?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right" aria-hidden="false"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+            <div style="margin-bottom: 30px;"></div>
+        </div>
+
+    </div>
+
+    {% endblock %}

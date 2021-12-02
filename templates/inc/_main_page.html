@@ -1,0 +1,37 @@
+<div class="container mt-3 ">
+
+    {% for item in pages %}
+    <div class="card mb-3">
+  <img src="{{ item.photo.url }}" class="card-img-top border border-5 border-white img-fluid"  alt="..." width="800">
+  <div class="card-body">
+    <h3 class="card-title text-success">{{ item.title }}</h3>
+      <h6><p class="card-text text-success">{{ item.subtitle }}</p></h6>
+  </div>
+</div>
+    {% endfor%}
+
+
+    <div class="row">
+
+  <div class="col-sm-8">
+      {% for item in pages %}
+    <div class="card">
+      <div class="card-body">
+        <p> {{ item.content }}</p>
+          <p class="card-text"><small class="text-muted">{{ item.created_at|date:"Y-m-d"}}</small></p>
+      </div>
+    </div>
+      {% endfor %}
+  </div>
+
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Спроси методиста</h5>
+        <p class="card-text">Здесь можно задать вопрос методисту по темам представленных на этом сайте.</p>
+        <a href="{% url 'add_news' %}" class="btn btn-primary">Спросить</a>
+      </div>
+    </div>
+  </div>
+</div>
+  <br>

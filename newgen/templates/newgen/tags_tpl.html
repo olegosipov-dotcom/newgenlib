@@ -1,0 +1,9 @@
+<div class="tags">
+    <br>
+    <h4 class="sidebar-title text-success">Тэги</h4>
+    {% for tag in tags %}
+
+    <p style="float: left; background: #ddd; margin: 5px; padding: 7px; border: 1px solid #ccc; border-radius: 3px;"><a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a></p>
+
+    {% endfor %}
+</div>

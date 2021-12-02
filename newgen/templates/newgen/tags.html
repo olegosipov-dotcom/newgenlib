@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-3 ">
+    <div class="row">
+        <h4 class="text-success">{{ title }}</h4>
+    </div>
+</div>
+
+    <div class="container mt-3 vh-100">
+        <div class="row g-3 mb-3">
+
+
+            {% for post in posts %}
+            <div class="col-sm-6">
+                <div class="card text-start">
+                    <div class="card-header text-success">
+                        Категория: {{ post.category }}
+                    </div>
+                    <div class="card-body">
+                        <div class="col-md-5" >
+                            {% if post.photo %}
+                            <img src="{{ post.photo.url }}" class="img-fluid img-thumbnail float-start me-4" alt="{{ post.title}}">
+                            {% else %}
+                            <img src="https://picsum.photos/id/237/300/200" alt="" class="img-fluid img-thumbnail float-start me-4">
+                            {% endif %}
+                        </div>
+
+
+                        <div class="col-ms-12 ">
+                            <h5 class="card-title text-success"><a href="{{ post.get_absolute_url }}">{{post.title}}</a></h5>
+                            {% autoescape off %}
+                            <p class="card-text">{{ post.content|truncatewords:22 }}</p>
+                            {% endautoescape %}
+                            <a href="{{ post.get_absolute_url }}" class="btn btn-primary">Подробнее...</a>
+                        </div>
+                    </div>
+
+                    <div class="card-footer text-muted">
+                        {{ post.created_at|date:"d/m/Y"}}
+                    </div>
+
+                </div>
+            </div>
+            {% endfor%}
+
+
+        </div>
+
+    </div>
+
+    {% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load sidebar %}
+
+{% block title %} {{ post.title }} :: {{ block.super }} {% endblock %}
+
+{% block content %}
+<br>
+<section class="single-blog-area">
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="blog-area">
+                            <div class="blog-area-part">
+                                <div class="card mb-3">
+                                <div class="card-body">
+                                <h3 class="text-success">{{ post.title }}</h3>
+                                <div class="single-content"></div>
+                                <div><p>
+                                    <span>Категория: <a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a></span>
+                                    {% if post.tags.exists %}<br>
+                                    <span>
+                                        Теги:
+                                        {% for tag in post.tags.all %}
+                                        <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
+                                        {% endfor %}
+                                    </span>
+                                    {% endif %}<br>
+                                    <span>Просмотры: {{ post.views }}</span><br>
+                                    <span>Автор: {{ post.author }}</span>
+                                </p>
+                                </div>
+                                <div class="col-md-5">
+                                    {% if post.photo %}
+                                    <img src="{{ post.photo.url }}" class="img-fluid img-thumbnail float-start me-4"
+                                         alt="{{ post.title}}">
+                                    {% else %}
+                                    <img src="https://picsum.photos/id/237/300/200" alt=""
+                                         class="mr-3 img-fluid img-thumbnail float-start me-4">
+                                    {% endif %}
+                                </div>
+
+                                {{ post.content|safe }}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                    <div class="col-md-4">
+                        {% get_popular 4 %}
+                        {% get_tags %}
+                    </div>
+                    <div style="margin-bottom: 50px;">
+
+                    </div>
+
+                </div>
+                </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

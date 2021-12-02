@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="{{ menu_class }} ">
+                <ul class="nav nav-tabs">
+                    {% for item in categories %}
+                    <li class="nav-item">
+                        <a class="nav-link text-success" href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
